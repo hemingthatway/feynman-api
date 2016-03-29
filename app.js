@@ -120,7 +120,7 @@ app.post('/api', function(req, res) {
 });
 
 app.listen(8080, function callback(){
-    console.log('Server running and listening @ localhost:3000');
+    console.log('Server running and listening @ localhost:8080');
 });
 
 user.find({}, function callback(err, result) {
