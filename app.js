@@ -17,76 +17,77 @@ var userSchema = mongoose.Schema({
 });
 var user = mongoose.model('user', userSchema);
 
+var path = require('path');
 
 var app = express();
-
+app.use(express.static(__dirname));
+app.use(express.static(__dirname + '/templates'));
+app.use(express.static(__dirname + '/static'));
+app.use(bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api', function(req, res) {
-
-    if(req.query.req_type == undefined) {
-        res.send('no req_type');
-        console.log('no req_type');
+app.post('/auth', function(req, res) {
+    console.log("Received POST @ /auth : " + req.body);
+    if(req.body == undefined){
+        console.log('no query data provided');
         return;
     }
-    switch (req.query.req_type){
-
-        case 'auth':
-            user.find({ email: req.query.email }, function(err, match) {
-                if(err) {
-                    console.log(err);
-                    res.send(err);
-                    return;
-                }
-                if(match == null) {
-                    res.send('No such acc with email ' + req.query.email);
-                    console.log('No such acc with email ' + req.query.email)    ;
-                    return;
-                }
-                if(match[0].password == req.query.password) {
-                    res.send('success');
-                    console.log('auth of user' + req.query.email + 'successful');
-                }
-                else {
-                    res.send('failure');
-                    console.log('auth of user' + req.query.email + 'failed');
-                }
-            });
-            break;
-
-        default:
-            res.send('invalid api call invalid req_type:' + req.query.req_type);
-            console.log('invalid api call invalid req_type:' + req.query.req_type);
-            break;
+    if(req.body.email == undefined){
+        console.log('no email data provided');
+        return;
     }
+    if(req.body.password == undefined){
+        console.log('no password data provided');
+        return;
+    }
+    user.find({ email: req.body.email }, function(err, match) {
+        console.log(match);
+        if(err) {
+            console.log(err);
+            res.send(err);
+            return;
+        }
+        if(match == undefined) {
+            res.send('No such acc with email ' + req.body.email);
+            console.log('No such acc with email ' + req.body.email);
+            return;
+        }
+        if(match[0] == undefined) {
+            res.send('No such acc with email ' + req.body.email);
+            console.log('No such acc with email ' + req.body.email);
+            return;
+        }
+        if(match[0].password == req.body.password) {
+            res.sendFile(__dirname + '/templates/after.html');
+            console.log('auth of user ' + req.body.email + ' successful');
+        }
+        else {
+            res.send('failure');
+            console.log('auth of user ' + req.body.email + ' failed');
+        }
+    });
+
 });
 
-app.post('/api', function(req,res) {
-
+app.post('/api', function(req, res) {
+    console.log(req.body);
     switch (undefined) {
         case req.body.name:
             console.log('no name provided');
             res.send('no name provided');
-            break;
+            return;
         case req.body.email:
             console.log('no email provided');
             res.send('no email provided');
-            break;
+            return;
         case req.body.password:
             console.log('no password provided');
             res.send('no password provided');
-            break;
+            return;
         default:
             break;
     }
-
-    user.find({email: req.body.email}, function callback(err, users) {
-        if(users != undefined) {
-            res.send('email' + req.body.email + 'taken');
-            console.log('email taken');
-        }
-    });
 
     var newUser = new user({
         name: req.body.name,
@@ -94,22 +95,47 @@ app.post('/api', function(req,res) {
         password: req.body.password
     });
 
-    newUser.save(function (err, newuser) {
-        if(err) {
-            console.log(err);
-            res.send('Registration failed');
+    user.find({email: req.body.email}, function callback(err, users) {
+        if(users[0] == undefined || users == [] || users == undefined || users == null || users == ' ') {
+            newUser.save(function (err, newuser) {
+                if(err) {
+                    console.log(err);
+                    res.send('Registration failed');
+                    return;
+                }
+                console.log(newuser);
+                res.send('User ' + req.body.email + ' registered');
+            });
         }
-        console.log(newuser);
-        res.send('User ' + req.body.email + ' registered');
+        else {
+            console.log('users:' + users);
+            res.send('email ' + req.body.email + ' taken');
+            console.log('email taken');
+        }
     });
 
+
+
+
 });
 
-app.listen(3000, function callback(){
-    console.log('Api running and listening @ localhost:3000');
+app.listen(8080, function callback(){
+    console.log('Server running and listening @ localhost:3000');
 });
+
 user.find({}, function callback(err, result) {
     result.forEach(function callback(el) {
         console.log(el);
     })
 });
+
+function staticRouting (req, res, next) {
+    console.log(req.url);
+    if(req.url == undefined) next();
+    if(req.url.length == 0) next();
+    var splitPath = req.url.split('/');
+    console.log(splitPath);
+    if(splitPath[0] != 'static' || splitPath[0] != 'templates') next();
+    res.sendFile(req.url);
+    next();
+}
