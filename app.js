@@ -125,18 +125,7 @@ app.listen(8080, function callback(){
 });
 
 user.find({}, function callback(err, result) {
-    result.forEach(function callback(el) {
-        console.log(el);
+    result.forEach(function callback(el, index) {
+        console.log(index + ': ' + el.name + ' ' + el.email);
     })
 });
-
-function staticRouting (req, res, next) {
-    console.log(req.url);
-    if(req.url == undefined) next();
-    if(req.url.length == 0) next();
-    var splitPath = req.url.split('/');
-    console.log(splitPath);
-    if(splitPath[0] != 'static' || splitPath[0] != 'templates') next();
-    res.sendFile(req.url);
-    next();
-}
