@@ -104,7 +104,8 @@ app.post('/api', function(req, res) {
                     return;
                 }
                 console.log(newuser);
-                res.send('User ' + req.body.email + ' registered');
+                console.log('User ' + req.body.email + ' registered');
+                res.sendFile(__dirname + '/templates/after.html');
             });
         }
         else {
