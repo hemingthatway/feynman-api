@@ -1,0 +1,37 @@
+Mon Mar 28 13:36:39.963 [initandlisten] MongoDB starting : pid=12670 port=27017 dbpath=/home/feynman/db 64-bit host=feynman-api-01
+Mon Mar 28 13:36:39.963 [initandlisten] db version v2.4.9
+Mon Mar 28 13:36:39.963 [initandlisten] git version: nogitversion
+Mon Mar 28 13:36:39.963 [initandlisten] build info: Linux orlo 3.2.0-58-generic #88-Ubuntu SMP Tue Dec 3 17:37:58 UTC 2013 x86_64 BOOST_LIB_VERSION=1_54
+Mon Mar 28 13:36:39.963 [initandlisten] allocator: tcmalloc
+Mon Mar 28 13:36:39.964 [initandlisten] options: { dbpath: "/home/feynman/db", smallfiles: true }
+Mon Mar 28 13:36:39.967 [initandlisten] journal dir=/home/feynman/db/journal
+Mon Mar 28 13:36:39.968 [initandlisten] recover : no journal files present, no recovery needed
+Mon Mar 28 13:36:40.045 [initandlisten] waiting for connections on port 27017
+Mon Mar 28 13:36:40.045 [websvr] admin web console waiting for connections on port 28017
+Mon Mar 28 13:37:17.157 [initandlisten] connection accepted from 127.0.0.1:35914 #1 (1 connection now open)
+Mon Mar 28 13:37:56.877 [conn1] end connection 127.0.0.1:35914 (0 connections now open)
+Mon Mar 28 13:56:17.772 [initandlisten] connection accepted from 127.0.0.1:35947 #2 (1 connection now open)
+Mon Mar 28 13:56:50.974 [conn2] end connection 127.0.0.1:35947 (0 connections now open)
+Mon Mar 28 15:07:24.810 [initandlisten] connection accepted from 127.0.0.1:36329 #3 (1 connection now open)
+Mon Mar 28 15:09:53.901 [conn3] end connection 127.0.0.1:36329 (0 connections now open)
+Mon Mar 28 15:10:30.422 [initandlisten] connection accepted from 127.0.0.1:36330 #4 (1 connection now open)
+Mon Mar 28 15:17:19.326 [conn4] end connection 127.0.0.1:36330 (0 connections now open)
+Mon Mar 28 15:18:00.397 [signalProcessingThread] got signal 15 (Terminated), will terminate after current cmd ends
+Mon Mar 28 15:18:00.399 [signalProcessingThread] now exiting
+Mon Mar 28 15:18:00.404 dbexit: 
+Mon Mar 28 15:18:00.404 [signalProcessingThread] shutdown: going to close listening sockets...
+Mon Mar 28 15:18:00.404 [signalProcessingThread] closing listening socket: 9
+Mon Mar 28 15:18:00.404 [signalProcessingThread] closing listening socket: 10
+Mon Mar 28 15:18:00.404 [signalProcessingThread] closing listening socket: 11
+Mon Mar 28 15:18:00.404 [signalProcessingThread] removing socket file: /tmp/mongodb-27017.sock
+Mon Mar 28 15:18:00.405 [signalProcessingThread] shutdown: going to flush diaglog...
+Mon Mar 28 15:18:00.405 [signalProcessingThread] shutdown: going to close sockets...
+Mon Mar 28 15:18:00.405 [signalProcessingThread] shutdown: waiting for fs preallocator...
+Mon Mar 28 15:18:00.405 [signalProcessingThread] shutdown: lock for final commit...
+Mon Mar 28 15:18:00.405 [signalProcessingThread] shutdown: final commit...
+Mon Mar 28 15:18:00.405 [signalProcessingThread] shutdown: closing all files...
+Mon Mar 28 15:18:00.406 [signalProcessingThread] closeAllFiles() finished
+Mon Mar 28 15:18:00.406 [signalProcessingThread] journalCleanup...
+Mon Mar 28 15:18:00.406 [signalProcessingThread] removeJournalFiles
+Mon Mar 28 15:18:00.409 [signalProcessingThread] shutdown: removing fs lock...
+Mon Mar 28 15:18:00.409 dbexit: really exiting now
